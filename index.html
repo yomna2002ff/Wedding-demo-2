@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف ملكية: أحمد & سارة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --beige: #faf7f1; /* Off-White كريمي ملكي */
+            --dark-beige: #efe9db; /* كريمي أغمق للتباين */
+            --champagne: #c5a47e; /* ذهبي عتيق */
+            --text-dark: #333333; /* أسود هادئ */
+            --white: #ffffff;
+        }
+
+        /* تنسيقات عامة */
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--beige);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* تمرير ناعم */
+        }
+
+        h1, h2, h3 {
+            font-family: 'Amiri', serif;
+            color: var(--champagne);
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* --- 1. الافتتاحية: الظرف والختم --- */
+        #envelope-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; transition: transform 1.5s ease;
+        }
+
+        .envelope {
+            width: 300px; height: 200px; background: #fff;
+            border: 2px solid #ddd; border-radius: 10px;
+            position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .envelope-flap {
+            width: 0; height: 0;
+            border-left: 150px solid transparent; border-right: 150px solid transparent;
+            border-bottom: 100px solid #ddd;
+            position: absolute; top: -100px; left: 0; transition: 1s;
+        }
+
+        .wax-seal {
+            width: 50px; height: 50px; background: #b8162e; /* أحمر نبيذي */
+            border-radius: 50%; border: 3px solid var(--champagne);
+            position: absolute; top: calc(50% - 25px); left: calc(50% - 25px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center;
+            color: white; font-weight: bold; font-size: 20px;
+        }
+
+        .open-envelope .envelope-flap { transform: rotateX(180deg); }
+        .slide-up { transform: translateY(-100vh); } /* إخفاء الواجهة بعد الفتح */
+
+        /* --- 2. الواجهة الرئيسية (Hero) --- */
+        .hero {
+            background: linear-gradient(rgba(250, 247, 241, 0.5), rgba(250, 247, 241, 0.8)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 { font-size: 4.5rem; margin: 0; color: var(--champagne); }
+        .hero .ampersand { font-family: 'Great Vibes', cursive; font-size: 5rem; color: var(--text-dark); }
+        .hero p { font-size: 1.6rem; letter-spacing: 2px; color: var(--text-dark); }
+
+        /* --- 3. قصة العروسين ومعرض الصور --- */
+        .story-section { padding: 80px 20px; background: var(--white); }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px; max-width: 1100px; margin: auto;
+        }
+        .gallery-item {
+            position: relative; overflow: hidden; border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); aspect-ratio: 1/1; /* مربعة */
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); } /* تكبير عند الحوم */
+
+        /* --- 4. العداد التنازلي --- */
+        .countdown-container { padding: 60px 20px; background: var(--beige); text-align: center; }
+        .timer { display: flex; justify-content: center; gap: 25px; margin-top: 30px; flex-wrap: wrap; }
+        .time-box {
+            background: var(--dark-beige); color: var(--champagne);
+            padding: 20px; border-radius: 15px; min-width: 100px;
+            border: 1px solid rgba(197, 164, 126, 0.2); box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+        .time-box span { display: block; font-size: 2.5rem; font-weight: bold; }
+
+        /* --- 5. تأكيد الحضور (RSVP) --- */
+        .rsvp-section { background: var(--white); padding: 80px 20px; text-align: center; }
+        form { max-width: 500px; margin: auto; background: var(--dark-beige); padding: 40px; border-radius: 15px; border: 1px solid rgba(0,0,0,0.05); }
+        input, select { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; background: var(--white); box-sizing: border-box; }
+        .submit-btn { width: 100%; background: var(--champagne); color: var(--white); border: none; padding: 18px; border-radius: 10px; cursor: pointer; font-size: 1.2rem; font-weight: 600; }
+
+        /* --- تذييل الصفحة (The Footer) --- */
+        footer { padding: 50px; font-size: 1rem; color: var(--text-dark); background: var(--beige); text-align: center; border-top: 1px solid rgba(0,0,0,0.05); }
+        .designer-credit { font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--champagne); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div id="envelope-wrapper" onclick="openWeddingEnvelope()">
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+            <p style="position: absolute; top: 110px; left: 60px; font-weight: bold; color:var(--text-dark);">Kindly RSVP</p>
+            <p style="position: absolute; top: 130px; left: 80px; color:#666;">CLICK TO OPEN</p>
+            <div class="wax-seal">A&S</div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <p>بكل حب، ندعوكم لحضور حفل زفاف</p>
+        <h1>أحمد <span class="ampersand">&</span> سارة</h1>
+        <p>الجمعة، 25 سبتمبر 2026</p>
+    </div>
+
+    <div class="story-section">
+        <h2>معرض لحظاتنا</h2>
+        <p>مجموعة من أجمل اللحظات التي جمعتنا.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600&h=600" alt="لحظة 1"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=600&h=600" alt="لحظة 2"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=600&h=600" alt="لحظة 3"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=600&h=600" alt="لحظة 4"></div>
+        </div>
+    </div>
+
+    <div class="countdown-container">
+        <h2>بقي على يومنا الكبير</h2>
+        <div class="timer">
+            <div class="time-box"><span id="days">0</span>أيام</div>
+            <div class="time-box"><span id="hours">0</span>ساعات</div>
+            <div class="time-box"><span id="minutes">0</span>دقائق</div>
+        </div>
+    </div>
+
+    <div class="rsvp-section">
+        <h2>هل ستشاركوننا الفرحة؟</h2>
+        <p>يرجى تأكيد الحضور قبل تاريخ 1 سبتمبر لضمان ترتيباتكم.</p>
+        
+        <form action="https://formspree.io/f/mvzwerqy" method="POST">
+            <input type="text" name="name" placeholder="الاسم الكامل" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني (اختياري)">
+            <select name="guests">
+                <option value="1">حضور شخص واحد</option>
+                <option value="2">حضور شخصين</option>
+                <option value="0">نعتذر عن الحضور</option>
+            </select>
+            <input type="text" name="message" placeholder="كلمة للعروسين (اختياري)">
+            <button type="submit" class="submit-btn">إرسال التأكيد</button>
+        </form>
+    </div>
+
+    <footer>
+        بكل حب، ننتظركم.<br>
+        © 2026 جميع الحقوق محفوظة للعروسين أحمد وسارة.<br><br>
+        <span style="font-size: 0.9rem; color: #aaa;">تم تصميم هذا الموقع بكل فخر بواسطة:</span><br>
+        <a href="http://yomi.github.io/wedding-invitation" class="designer-credit">المهندسة يمنى - المصممة</a>
+    </footer>
+
+    <script>
+        // 1. برمجة فتح الظرف
+        function openWeddingEnvelope() {
+            document.getElementById('envelope-wrapper').classList.add('slide-up');
+            // إخفاء الواجهة بعد انتهاء الحركة
+            setTimeout(() => {
+                document.getElementById('envelope-wrapper').style.display = 'none';
+            }, 1500);
+        }
+
+        // 2. برمجة العداد التنازلي
+        const weddingDate = new Date("September 25, 2026 19:00:00").getTime();
+
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+        }, 1000);
+    </script>
+
+</body>
+</html>
